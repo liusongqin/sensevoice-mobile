@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SenseVoice</string>
+    <string name="btn_record">开始录音</string>
+    <string name="btn_stop">停止录音</string>
+    <string name="btn_select_file">选择音频文件</string>
+    <string name="status_ready">就绪，点击按钮开始录音或选择音频文件</string>
+    <string name="status_recording">正在录音…</string>
+    <string name="status_processing">正在识别…</string>
+    <string name="status_done">识别完成</string>
+    <string name="status_error">识别失败</string>
+    <string name="status_loading_model">正在加载模型…</string>
+    <string name="status_model_loaded">模型加载完成</string>
+    <string name="label_result">识别结果</string>
+    <string name="label_language">语言</string>
+    <string name="label_emotion">情感</string>
+    <string name="label_event">事件</string>
+    <string name="label_text">文本</string>
+    <string name="hint_result">识别结果将显示在这里</string>
+    <string name="model_not_found">模型文件未找到，请将模型文件放入 assets 目录</string>
+</resources>
