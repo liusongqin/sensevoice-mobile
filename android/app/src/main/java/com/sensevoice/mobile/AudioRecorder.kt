@@ -109,7 +109,7 @@ class AudioRecorder(private val context: Context) {
     }
 
     /** Returns true if currently recording. */
-    fun isRecording(): Boolean = isRecording
+    fun getRecordingState(): Boolean = isRecording
 
     companion object {
         const val SAMPLE_RATE = 16000

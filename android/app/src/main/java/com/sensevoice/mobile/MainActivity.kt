@@ -1,13 +1,14 @@
 package com.sensevoice.mobile
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -44,6 +45,12 @@ class MainActivity : AppCompatActivity() {
     private var recorder: AudioRecorder? = null
     private var isRecording = false
     private val scope = CoroutineScope(Dispatchers.Main + Job())
+
+    private val selectFileLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let { transcribeFile(it) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -193,26 +200,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun selectAudioFile() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "audio/*"
-            addCategory(Intent.CATEGORY_OPENABLE)
-        }
-        startActivityForResult(
-            Intent.createChooser(intent, "选择音频文件"),
-            REQUEST_SELECT_FILE
-        )
+        selectFileLauncher.launch("audio/*")
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_SELECT_FILE && resultCode == RESULT_OK) {
-            data?.data?.let { uri ->
-                transcribeFile(uri)
-            }
-        }
-    }
-
-    private fun transcribeFile(uri: android.net.Uri) {
+    private fun transcribeFile(uri: Uri) {
         tvStatus.text = getString(R.string.status_processing)
         progressBar.visibility = View.VISIBLE
         btnRecord.isEnabled = false
@@ -296,6 +287,5 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val REQUEST_PERMISSIONS = 1001
-        private const val REQUEST_SELECT_FILE = 1002
     }
 }
