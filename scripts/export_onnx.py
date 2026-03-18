@@ -2,6 +2,10 @@
 """
 Export SenseVoice model to ONNX format for mobile deployment.
 
+NOTE: You can also download pre-exported ONNX model files directly from
+ModelScope without running this script:
+    https://www.modelscope.cn/models/iic/SenseVoiceSmall-onnx/files
+
 This script converts a SenseVoice PyTorch model to ONNX format that can
 be loaded by ONNX Runtime on Android/iOS devices.
 
